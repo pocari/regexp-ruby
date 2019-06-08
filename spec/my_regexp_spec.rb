@@ -51,20 +51,26 @@ describe 'my_regexp' do
     end
   end
 
-  describe '分岐、繰り返し、連結の組み合わせ((a+|ddd)ef)' do
-    let(:pat) { '(a+|ddd)ef' }
+  describe '分岐、繰り返し、連結の組み合わせ((ab)+|(cd)+)ef' do
+    let(:pat) { '((ab)+|(cd)+)ef' }
 
-    it 'aefにマッチすること' do
-      expect(reg.match('aef')).to be_truthy
+    it 'abefにマッチすること' do
+      expect(reg.match('abef')).to be_truthy
     end
-    it 'aaefにマッチすること' do
-      expect(reg.match('aaef')).to be_truthy
+    it 'cdefにマッチすること' do
+      expect(reg.match('cdef')).to be_truthy
     end
-    it 'efにはマッチしないこと' do
-      expect(reg.match('aaef')).to be_truthy
+    it 'ababefにマッチすること' do
+      expect(reg.match('ababef')).to be_truthy
     end
-    it 'dddcefにマッチすること' do
-      expect(reg.match('dddef')).to be_truthy
+    it 'cdcdefにマッチすること' do
+      expect(reg.match('cdcdef')).to be_truthy
+    end
+    it 'ababxefにはマッチしないこと' do
+      expect(reg.match('ababxef')).to be_falsey
+    end
+    it 'abcdefにはマッチしないこと' do
+      expect(reg.match('abcdef')).to be_falsey
     end
   end
 end

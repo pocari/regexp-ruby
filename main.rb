@@ -3,7 +3,7 @@ require 'pp'
 require 'pry-byebug'
 require_relative 'my_regexp/regexp'
 
-def check(pattern)
+def check(pattern, test_strings)
   p [:pattern, pattern]
   reg = MyRegexp::Regexp.new(pattern)
   pp [:ast, reg.ast]
@@ -11,17 +11,15 @@ def check(pattern)
   pp :ir
   puts reg.ir.map.with_index{|e, i| [i, e.inspect].join(" ")}.join("\n")
 
-  str = 'accd'
-  p [:match, str, reg.match(str)]
+  test_strings.each do |str|
+    p [:match, str, reg.match(str) ? 'matched' : 'unmatched']
+  end
+
   puts
 end
 
-# check('a*')
-# check('a+')
-# check('ab*c')
-# check('ab+c')
-# check('(ab)*c')
-# check('ab*c')
-check('a+b*ccd')
-# check('a*|b+')
-# check('a*|b+|cc')
+check('a*b', %w[b ab aab cb])
+check('a+b', %w[b ab aab cb])
+check('abc|def', %w[abc def aef])
+check('((ab)+|(cd)+)ef', %w[abef cdef ababef cdcdef ababxef abcdef])
+
