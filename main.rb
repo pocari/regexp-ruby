@@ -9,7 +9,10 @@ def check(pattern, test_strings)
   pp [:ast, reg.ast]
 
   pp :ir
-  puts reg.ir.map.with_index{|e, i| [i, e.inspect].join(" ")}.join("\n")
+  puts reg.ir.map.with_index { |e, i|
+    no = format("%2d", i)
+    [no, e.inspect].join(" ")
+  }.join("\n")
 
   test_strings.each do |str|
     p [:match, str, reg.match(str) ? 'matched' : 'unmatched']
