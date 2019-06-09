@@ -5,7 +5,6 @@ module MyRegexp
     attr_reader :ir, :str, :stack
     def initialize(ir)
       @ir = ir
-      @stack = []
     end
 
     def match(str)
