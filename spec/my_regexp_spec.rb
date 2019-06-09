@@ -6,9 +6,18 @@ describe 'my_regexp' do
   }
 
   describe '連結がマッチできること' do
-    let(:pat) { 'abcdef' }
-    it do
-      expect(reg.match('abcdef')).to be_truthy
+    context '一文字の場合' do
+      let(:pat) { 'a' }
+      it do
+        expect(reg.match('a')).to be_truthy
+      end
+    end
+
+    context '複数文字の場合' do
+      let(:pat) { 'abcdef' }
+      it do
+        expect(reg.match('abcdef')).to be_truthy
+      end
     end
   end
 

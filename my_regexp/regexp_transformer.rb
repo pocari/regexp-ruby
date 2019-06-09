@@ -7,35 +7,12 @@ module MyRegexp
     rule(escaped_char: simple(:x)) { x }
     rule(left: simple(:x)) { x }
     rule(right: simple(:x)) { x }
-    rule(plus: simple(:x)) {
-      case x
-      when Node
-        Plus.new(x)
-      when String
-        Plus.new(Char.new(x))
-      else
-        raise "unknown type: #{x.class}"
-      end
-    }
-    rule(star: simple(:x)) {
-      case x
-      when Node
-        Star.new(x)
-      when String
-        Star.new(Char.new(x))
-      else
-        raise "unknown type: #{x.class}"
-      end
-    }
+    rule(plus: simple(:x)) { Plus.new(x) }
+    rule(star: simple(:x)) { Star.new(x) }
 
     rule(list: sequence(:x)) {
       x.inject do |acc, n|
-        case acc
-        when Node
-          List.new(acc, n)
-        else
-          raise "unknown type: #{acc.class}"
-        end
+        List.new(acc, n)
       end
     }
 
