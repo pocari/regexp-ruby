@@ -1,6 +1,6 @@
 module MyRegexp
   class Vm
-    VmThread = Struct.new(:ip, :sp)
+    VmThread = Struct.new(:pc, :sp)
 
     attr_reader :ir, :str, :stack
     def initialize(ir)
@@ -14,13 +14,13 @@ module MyRegexp
     end
 
     private
-    def push(ip, sp)
-      stack.push(VmThread.new(ip, sp))
+    def push(pc, sp)
+      stack.push(VmThread.new(pc, sp))
     end
 
     def pop
       th = stack.pop
-      [th.ip, th.sp]
+      [th.pc, th.sp]
     end
 
     def init(sp)
@@ -28,13 +28,13 @@ module MyRegexp
       push(0, sp)
     end
 
-    def match_at(sp, ip, str)
+    def match_at(sp, pc, str)
       init(sp)
       until stack.empty?
-        ip, sp = pop
+        pc, sp = pop
         loop do
-          code = ir[ip]
-          ip += 1
+          code = ir[pc]
+          pc += 1
 
           case code.op
           when Ir::OP_CHAR
@@ -42,9 +42,9 @@ module MyRegexp
 
             sp += 1
           when Ir::OP_PUSH
-            push(ip + code.arg1, sp)
+            push(pc + code.arg1, sp)
           when Ir::OP_JUMP
-            ip += code.arg1
+            pc += code.arg1
           when Ir::OP_MATCH
             return true
           end
