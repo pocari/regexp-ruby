@@ -8,6 +8,7 @@ module MyRegexp
     end
 
     def match(str)
+      # TODO spの位置を変えつつマッチさせて部分一致も実装する
       sp = 0
       match_at(0, sp, str)
     end
