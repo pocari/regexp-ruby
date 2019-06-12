@@ -23,6 +23,7 @@ end
 
 check('a*b', %w[b ab aab cb])
 check('a+b', %w[b ab aab cb])
+check('a?b', %w[ab b aab])
 check('abc|def', %w[abc def aef])
 check('((ab)+|(cd)+)ef', %w[abef cdef ababef cdcdef ababxef abcdef])
 

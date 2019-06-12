@@ -82,6 +82,7 @@ describe 'my_regexp' do
       expect(reg.match('abcdef')).to be_falsey
     end
   end
+
   describe '分岐、繰り返し、連結の組み合わせ (a|c)*\*b+' do
     let(:pat) { '(a|c)*\*b+' }
     it 'a*bにマッチすること' do
@@ -107,6 +108,19 @@ describe 'my_regexp' do
     end
     it 'acaaccにはマッチしないこと' do
       expect(reg.match('acaacc')).to be_falsey
+    end
+  end
+  describe '?がマッチできること' do
+    let(:pat) { 'x?y' }
+
+    it 'xyにマッチすること' do
+      expect(reg.match('xy')).to be_truthy
+    end
+    it 'yにマッチすること' do
+      expect(reg.match('y')).to be_truthy
+    end
+    it 'xxyにはマッチしないこと' do
+      expect(reg.match('xxy')).to be_falsey
     end
   end
 end
