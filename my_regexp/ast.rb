@@ -112,4 +112,23 @@ module MyRegexp
       ]
     end
   end
+
+  class Option < Node
+    attr_reader :exp
+    def initialize(exp)
+      @exp = exp
+    end
+
+    def inspect
+      "(? #{exp.inspect})"
+    end
+
+    def compile
+      exp_ir = exp.compile
+      [
+        Ir.push(exp_ir.size),
+        *exp_ir,
+      ]
+    end
+  end
 end

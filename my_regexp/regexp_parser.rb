@@ -12,6 +12,7 @@ module MyRegexp
       (
         (exp >> op_star).as(:star) |
         (exp >> op_plus).as(:plus) |
+        (exp >> op_option).as(:option) |
         exp
       ).repeat(1).as(:list)
     }
@@ -20,13 +21,14 @@ module MyRegexp
       (
         str('(') >> regexp >> str(')') |
         (str('\\') >> any.as(:escaped)).as(:escaped_char) |
-        match(/[^*+|)(]/).as(:char)
+        match(/[^*+|?)(]/).as(:char)
       )
     }
 
     rule(:op_branch) { str('|') }
     rule(:op_star) { str('*') }
     rule(:op_plus) { str('+') }
+    rule(:op_option) { str('?') }
 
     root(:regexp)
   end
