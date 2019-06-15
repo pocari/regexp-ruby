@@ -60,8 +60,8 @@ describe 'my_regexp' do
     end
   end
 
-  describe '分岐、繰り返し、連結の組み合わせ((ab)+|(cd)+)ef' do
-    let(:pat) { '((ab)+|(cd)+)ef' }
+  describe '分岐、繰り返し、連結の組み合わせ^((ab)+|(cd)+)ef$' do
+    let(:pat) { '^((ab)+|(cd)+)ef$' }
 
     it 'abefにマッチすること' do
       expect(reg.match('abef')).to be_truthy
@@ -112,7 +112,7 @@ describe 'my_regexp' do
   end
 
   describe '?がマッチできること' do
-    let(:pat) { 'x?y' }
+    let(:pat) { '^x?y$' }
 
     it 'xyにマッチすること' do
       expect(reg.match('xy')).to be_truthy

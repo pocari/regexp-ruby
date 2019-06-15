@@ -8,9 +8,11 @@ module MyRegexp
     end
 
     def match(str)
-      # TODO spの位置を変えつつマッチさせて部分一致も実装する
       sp = 0
-      match_at(sp, 0, str)
+      str.length.times do |sp|
+        return true if match_at(sp, 0, str)
+      end
+      nil
     end
 
     private
