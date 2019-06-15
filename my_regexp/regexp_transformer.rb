@@ -7,6 +7,8 @@ module MyRegexp
     rule(escaped_char: simple(:x)) { x }
     rule(plus: simple(:x)) { Plus.new(x) }
     rule(star: simple(:x)) { Star.new(x) }
+    rule(bol: simple(:x)) { Bol.new }
+    rule(eol: simple(:x)) { Eol.new }
     rule(option: simple(:x)) { Option.new(x) }
     rule(left: simple(:x)) { x }
     rule(right: simple(:x)) { x }

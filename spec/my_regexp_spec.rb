@@ -110,6 +110,7 @@ describe 'my_regexp' do
       expect(reg.match('acaacc')).to be_falsey
     end
   end
+
   describe '?がマッチできること' do
     let(:pat) { 'x?y' }
 
@@ -121,6 +122,28 @@ describe 'my_regexp' do
     end
     it 'xxyにはマッチしないこと' do
       expect(reg.match('xxy')).to be_falsey
+    end
+  end
+
+  describe '^がマッチできること' do
+    let(:pat) { '^abc' }
+
+    it 'abcにマッチすること' do
+      expect(reg.match('abc')).to be_truthy
+    end
+    it 'xabcにマッチしないこと' do
+      expect(reg.match('xabc')).to be_falsey
+    end
+  end
+
+  describe '$がマッチできること' do
+    let(:pat) { 'abc$' }
+
+    it 'abcにマッチすること' do
+      expect(reg.match('abc')).to be_truthy
+    end
+    it 'abcxにマッチしないこと' do
+      expect(reg.match('abcx')).to be_falsey
     end
   end
 end

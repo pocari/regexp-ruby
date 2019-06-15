@@ -127,8 +127,28 @@ module MyRegexp
       exp_ir = exp.compile
       [
         Ir.push(exp_ir.size),
-        *exp_ir,
+        *exp_ir
       ]
+    end
+  end
+
+  class Bol < Node
+    def inspect
+      "^"
+    end
+
+    def compile
+      [Ir.bol]
+    end
+  end
+
+  class Eol < Node
+    def inspect
+      "$"
+    end
+
+    def compile
+      [Ir.eol]
     end
   end
 end
