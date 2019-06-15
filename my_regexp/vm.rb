@@ -10,7 +10,7 @@ module MyRegexp
     def match(str)
       # TODO spの位置を変えつつマッチさせて部分一致も実装する
       sp = 0
-      match_at(0, sp, str)
+      match_at(sp, 0, str)
     end
 
     private
@@ -45,6 +45,10 @@ module MyRegexp
             push(pc + code.arg1, sp)
           when Ir::OP_JUMP
             pc += code.arg1
+          when Ir::OP_BOL
+            break if sp != 0
+          when Ir::OP_EOL
+            break if sp != str.length
           when Ir::OP_MATCH
             return true
           end

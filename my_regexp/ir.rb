@@ -4,13 +4,17 @@ module MyRegexp
     OP_PUSH = 1
     OP_JUMP = 2
     OP_MATCH = 3
+    OP_BOL = 4
+    OP_EOL = 5
 
     # for debug
     OP_NAME = [
       :char,
       :push,
       :jump,
-      :match
+      :match,
+      :bol,
+      :eol
     ]
 
     attr_reader :op, :arg1
@@ -39,6 +43,14 @@ module MyRegexp
 
       def match
         Ir.new(Ir::OP_MATCH, nil)
+      end
+
+      def bol
+        Ir.new(Ir::OP_BOL, nil)
+      end
+
+      def eol
+        Ir.new(Ir::OP_EOL, nil)
       end
 
       def compile(ast)
